@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Image Creator 神無月 ｜ ポートフォリオサイト</title>
 
-    <!-- Google Fonts Connection -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -38,7 +36,6 @@
       }
     </script>
 
-    <!-- Custom Styling & Specific Mandates -->
     <style>
       body {
         background-color: #f7f4ef;
@@ -50,38 +47,37 @@
         overflow-x: hidden;
       }
 
-      html {
-        scroll-behavior: smooth;
+      html { scroll-behavior: smooth; }
+
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f7f4ef; }
+      ::-webkit-scrollbar-thumb { background: #eee9e0; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8a8078; }
+
+      /* ── ヒーロー テキスト アニメーション（CSS keyframes で確実に動く） ── */
+      @keyframes heroFadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
-      /* Custom scrollbar matching paper aesthetic */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+      .hero-anim {
+        opacity: 0;
+        animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
       }
-      ::-webkit-scrollbar-track {
-        background: #f7f4ef;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #eee9e0;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #8a8078;
-      }
+      #hero-label-tag { animation-delay: 0.15s; }
+      #hero-title     { animation-delay: 0.30s; }
+      #hero-sub       { animation-delay: 0.45s; }
+      #hero-copy      { animation-delay: 0.65s; }
+      #hero-cta       { animation-delay: 0.85s; }
 
-      /* Scroll reveal styles */
+      /* スクロール リビール */
       .reveal-on-scroll {
         opacity: 0;
         transform: translateY(24px);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
         will-change: opacity, transform;
       }
-
-      .reveal-on-scroll.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
       .delay-100 { transition-delay: 100ms; }
       .delay-150 { transition-delay: 150ms; }
@@ -98,25 +94,18 @@
   </head>
   <body class="relative min-h-screen bg-bg-main text-text-light selection:bg-accent/20 selection:text-accent">
 
-    <!-- ────────────────────────────────────────────────────────
-        NAVIGATION HEADER
-        ──────────────────────────────────────────────────────── -->
+    <!-- NAVIGATION -->
     <header id="navbar" class="fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out py-6">
       <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between">
-        <!-- Logo -->
         <a href="#top" class="font-serif font-bold text-[0.95rem] tracking-[0.18em] text-text-light hover:text-accent transition-colors duration-300">
           imagecreater
         </a>
-
-        <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center space-x-10">
           <a href="#works" class="text-xs tracking-widest uppercase hover:text-accent transition-colors duration-300 font-medium">Works</a>
           <a href="#about" class="text-xs tracking-widest uppercase hover:text-accent transition-colors duration-300 font-medium">About</a>
           <a href="#skills" class="text-xs tracking-widest uppercase hover:text-accent transition-colors duration-300 font-medium">Skills</a>
           <a href="#contact" class="text-xs tracking-widest uppercase hover:text-accent transition-colors duration-300 font-medium">Contact</a>
         </nav>
-
-        <!-- Mobile Hamburguer Button -->
         <button id="mobile-menu-toggle" class="md:hidden text-text-light hover:text-accent focus:outline-none transition-colors p-1" aria-label="Toggle menu">
           <svg id="hamburger-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -126,93 +115,60 @@
           </svg>
         </button>
       </div>
-
-      <!-- Mobile Navigation Drawer -->
       <div id="mobile-nav-drawer" class="fixed inset-x-0 top-[79px] h-screen bg-[#f7f4ef]/98 backdrop-blur-md transition-all duration-500 ease-in-out opacity-0 -translate-y-8 pointer-events-none md:hidden border-t border-black/[0.04]">
         <nav class="flex flex-col items-start px-8 py-12 space-y-8">
-          <a href="#works" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">
-            Works <span class="text-xs text-text-muted font-sans ml-2">制作実績</span>
-          </a>
-          <a href="#about" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">
-            About <span class="text-xs text-text-muted font-sans ml-2">自己紹介・経歴</span>
-          </a>
-          <a href="#skills" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">
-            Skills <span class="text-xs text-text-muted font-sans ml-2">スキル概要</span>
-          </a>
-          <a href="#contact" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">
-            Contact <span class="text-xs text-text-muted font-sans ml-2">お問合わせ</span>
-          </a>
+          <a href="#works" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">Works <span class="text-xs text-text-muted font-sans ml-2">制作実績</span></a>
+          <a href="#about" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">About <span class="text-xs text-text-muted font-sans ml-2">自己紹介・経歴</span></a>
+          <a href="#skills" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">Skills <span class="text-xs text-text-muted font-sans ml-2">スキル概要</span></a>
+          <a href="#contact" class="mobile-nav-link font-serif text-2xl tracking-wider text-text-light hover:text-accent transition-colors block w-full py-2 border-b border-black/[0.02]">Contact <span class="text-xs text-text-muted font-sans ml-2">お問合わせ</span></a>
         </nav>
       </div>
     </header>
 
-    <!-- ────────────────────────────────────────────────────────
-        HERO SECTION (100vh)
-        ──────────────────────────────────────────────────────── -->
+    <!-- HERO -->
     <section id="top" class="relative min-h-screen flex items-center justify-start overflow-hidden pt-20">
-
-      <!-- Interactive SVG float particle network background -->
-      <div id="hero-particles-canvas" class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <!-- SVG injected dynamically by particle engine -->
-      </div>
-
-      <!-- Hero Main Content -->
+      <div id="hero-particles-canvas" class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0"></div>
       <div class="max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-16 relative z-10 select-none">
         <div class="max-w-3xl flex flex-col items-start text-left">
-
-          <p id="hero-label-tag" class="opacity-0 translate-y-5 text-[0.75rem] sm:text-xs font-sans tracking-[0.24em] text-text-muted uppercase mb-4 sm:mb-6 transition-all duration-1000">
+          <p id="hero-label-tag" class="hero-anim text-[0.75rem] sm:text-xs font-sans tracking-[0.24em] text-text-muted uppercase mb-4 sm:mb-6">
             Freelance AI Image Creator — Based in Japan
           </p>
-
           <div class="relative mb-6">
-            <h1 id="hero-title" class="opacity-0 translate-y-5 font-serif font-bold leading-none text-text-light tracking-wide transition-all duration-1000" style="font-size: clamp(3.5rem, 10vw, 9rem);">
+            <h1 id="hero-title" class="hero-anim font-serif font-bold leading-none text-text-light tracking-wide" style="font-size: clamp(3.5rem, 10vw, 9rem);">
               imagecreater
             </h1>
-            <span id="hero-sub" class="opacity-0 translate-y-5 block mt-2 font-serif text-sm sm:text-base tracking-[0.4em] font-medium text-accent transition-all duration-1000">
+            <span id="hero-sub" class="hero-anim block mt-2 font-serif text-sm sm:text-base tracking-[0.4em] font-medium text-accent">
               — 神無月
             </span>
           </div>
-
-          <h2 id="hero-copy" class="opacity-0 translate-y-5 font-serif text-lg sm:text-2xl md:text-3xl text-text-light font-light leading-relaxed mb-8 sm:mb-10 transition-all duration-1000">
+          <h2 id="hero-copy" class="hero-anim font-serif text-lg sm:text-2xl md:text-3xl text-text-light font-light leading-relaxed mb-8 sm:mb-10">
             AIで、世界を描く。
           </h2>
-
-          <div id="hero-cta" class="opacity-0 translate-y-5 transition-all duration-1000">
+          <div id="hero-cta" class="hero-anim">
             <a href="#works" class="group inline-flex items-center space-x-3 px-6 py-3 border border-text-light text-xs font-medium uppercase tracking-widest hover:bg-text-light hover:text-bg-main transition-all duration-500 rounded-none relative">
-              <span>Works </span>
+              <span>Works</span>
               <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
           </div>
         </div>
       </div>
-
-      <!-- Bottom scroll down indicator -->
       <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-40 hover:opacity-100 transition-opacity z-10">
         <span class="text-[0.65rem] tracking-[0.2em] font-mono mb-2 uppercase">Scroll</span>
         <div class="w-[1px] h-10 bg-gradient-to-b from-text-light to-transparent animate-pulse"></div>
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
-        WORKS SECTION (Editorial Layout)
-        ──────────────────────────────────────────────────────── -->
+    <!-- WORKS -->
     <section id="works" class="py-24 sm:py-32 bg-bg-sub border-t border-black/[0.02]">
       <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-
-        <!-- Section heading in the upper-left -->
         <div class="reveal-on-scroll flex flex-col items-start mb-16 sm:mb-20">
           <span class="text-[0.7rem] tracking-[0.25em] text-text-muted uppercase font-sans mb-2">— Featured Projects</span>
           <h2 class="font-serif text-3xl sm:text-4xl text-text-light font-bold">Works</h2>
         </div>
-
-        <!-- Asymmetrical Editorial layout: Left Big Card, Right vertically stacked smaller cards -->
         <div class="flex flex-col md:flex-row gap-12 lg:gap-16 items-stretch">
-
-          <!-- LEFT CARD (60%) -->
           <div class="w-full md:w-[58%]">
             <div class="reveal-on-scroll delay-100 bg-bg-main h-full border border-black/[0.03] shadow-md shadow-black/[0.01] flex flex-col group relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-accent transform -translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-out z-10"></div>
-              <!-- サムネイル画像 -->
               <div class="w-full h-52 sm:h-64 overflow-hidden flex-shrink-0 bg-bg-sub">
                 <img src="https://picsum.photos/seed/sns-youtube-thumb/800/400" alt="SNSサムネイル制作サンプル" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
               </div>
@@ -228,24 +184,17 @@
                     <span class="transform group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
                   </button>
                 </div>
-                <div>
-                  <div class="flex flex-wrap gap-2 pt-6 border-t border-black/[0.03]">
-                    <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#Midjourney</span>
-                    <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#プロンプト設計</span>
-                    <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#SNS活用</span>
-                  </div>
+                <div class="flex flex-wrap gap-2 pt-6 border-t border-black/[0.03]">
+                  <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#Midjourney</span>
+                  <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#プロンプト設計</span>
+                  <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#SNS活用</span>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- RIGHT COLUMN: Stack of 2 stacked smaller cards (40%) -->
           <div class="w-full md:w-[38%] flex flex-col gap-8 md:gap-10 justify-between">
-
-            <!-- Small Card 1 -->
             <div class="reveal-on-scroll delay-200 bg-bg-main border border-black/[0.03] shadow-md shadow-black/[0.01] flex flex-col group relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-accent transform -translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-out z-10"></div>
-              <!-- サムネイル画像 -->
               <div class="w-full h-40 overflow-hidden flex-shrink-0 bg-bg-sub">
                 <img src="https://picsum.photos/seed/ec-product-visual/400/250" alt="EC商品ビジュアル制作サンプル" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
               </div>
@@ -261,20 +210,15 @@
                     <span class="transform group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
                   </button>
                 </div>
-                <div>
-                  <div class="flex flex-wrap gap-2 pt-4 border-t border-black/[0.03]">
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#DALL-E</span>
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#Adobe Firefly</span>
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#EC向け</span>
-                  </div>
+                <div class="flex flex-wrap gap-2 pt-4 border-t border-black/[0.03]">
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#DALL-E</span>
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#Adobe Firefly</span>
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#EC向け</span>
                 </div>
               </div>
             </div>
-
-            <!-- Small Card 2 -->
             <div class="reveal-on-scroll delay-300 bg-bg-main border border-black/[0.03] shadow-md shadow-black/[0.01] flex flex-col group relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-accent transform -translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-out z-10"></div>
-              <!-- サムネイル画像 -->
               <div class="w-full h-40 overflow-hidden flex-shrink-0 bg-bg-sub">
                 <img src="https://picsum.photos/seed/kindle-eyecatch/400/250" alt="Kindle表紙・アイキャッチ制作サンプル" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
               </div>
@@ -290,25 +234,18 @@
                     <span class="transform group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
                   </button>
                 </div>
-                <div>
-                  <div class="flex flex-wrap gap-2 pt-4 border-t border-black/[0.03]">
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#Kindle表紙</span>
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#note</span>
-                    <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#アイキャッチ</span>
-                  </div>
+                <div class="flex flex-wrap gap-2 pt-4 border-t border-black/[0.03]">
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#Kindle表紙</span>
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#note</span>
+                  <span class="text-[0.65rem] text-text-muted font-sans tracking-wide">#アイキャッチ</span>
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
-
-        <!-- Wide bottom card: キャラクター・アイコン -->
         <div class="mt-12 lg:mt-16">
           <div class="reveal-on-scroll bg-bg-main border border-black/[0.03] shadow-md shadow-black/[0.01] group relative overflow-hidden">
             <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-accent transform -translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-out z-10"></div>
-            <!-- サムネイル画像ストリップ (4枚) -->
             <div class="flex gap-0.5 overflow-hidden flex-shrink-0">
               <img src="https://picsum.photos/seed/chara-icon1/300/180" alt="キャラクター制作サンプル1" class="w-1/4 h-36 sm:h-44 object-cover transition-transform duration-700 group-hover:scale-105 flex-shrink-0" loading="lazy" />
               <img src="https://picsum.photos/seed/chara-icon2/300/180" alt="キャラクター制作サンプル2" class="w-1/4 h-36 sm:h-44 object-cover transition-transform duration-700 group-hover:scale-105 flex-shrink-0" loading="lazy" />
@@ -320,9 +257,7 @@
                 <span class="px-3 py-1 bg-accent/10 text-accent font-sans text-[0.7rem] font-bold tracking-wider rounded-sm">キャラクター制作</span>
                 <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">SNSアイコン・オリジナルキャラ</span>
               </div>
-              <h3 class="font-serif text-xl sm:text-2xl text-text-light font-bold leading-snug mb-4">
-                オリジナルキャラクター・SNSアイコンのAI生成
-              </h3>
+              <h3 class="font-serif text-xl sm:text-2xl text-text-light font-bold leading-snug mb-4">オリジナルキャラクター・SNSアイコンのAI生成</h3>
               <p class="text-sm font-sans text-text-muted leading-relaxed mb-6">Stable DiffusionとLoRAモデルを活用し、発信者のペルソナに合ったオリジナルキャラクターやアイコンを制作。個人ブランディングのビジュアル構築を支援しています。</p>
               <div class="flex flex-wrap gap-2 pt-6 border-t border-black/[0.03]">
                 <span class="text-[0.7rem] text-text-muted font-sans tracking-wide">#Stable Diffusion</span>
@@ -335,98 +270,52 @@
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
-        ABOUT SECTION (Dark Section #1e1a16)
-        ──────────────────────────────────────────────────────── -->
+    <!-- ABOUT -->
     <section id="about" class="relative py-24 sm:py-32 bg-bg-dark text-text-dark overflow-hidden">
-
-      <!-- Giant calligraphy watermark "画" with low opacity (0.04) -->
-      <div class="font-serif leading-none select-none text-[#eee9e0]/4 pointer-events-none absolute left-4 sm:-left-4 md:-left-12 lg:left-6 top-1/2 -translate-y-1/2 z-0" style="font-size: clamp(10rem, 24vw, 24rem);">
-        画
-      </div>
-
+      <div class="font-serif leading-none select-none text-[#eee9e0]/4 pointer-events-none absolute left-4 sm:-left-4 md:-left-12 lg:left-6 top-1/2 -translate-y-1/2 z-0" style="font-size: clamp(10rem, 24vw, 24rem);">画</div>
       <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
-          <!-- Visual editorial negative space column -->
           <div class="lg:col-span-4 hidden lg:block"></div>
-
-          <!-- About Details Content -->
           <div class="lg:col-span-8 flex flex-col items-start max-w-2xl">
             <div class="reveal-on-scroll">
               <span class="text-[0.7rem] tracking-[0.25em] text-accent uppercase font-sans mb-3 block font-bold">About</span>
-
-              <h2 class="font-serif text-2xl sm:text-3.5xl font-bold leading-snug text-text-dark mb-6">
-                AIと想像力を組み合わせる、イメージクリエイターです。
-              </h2>
-
+              <h2 class="font-serif text-2xl font-bold leading-snug text-text-dark mb-6">AIと想像力を組み合わせる、イメージクリエイターです。</h2>
               <p class="text-sm font-sans text-text-dark/80 tracking-wide leading-loose mb-12 border-l border-accent/30 pl-5">
                 50代・60代の方に向けて、AIツールを使った画像制作の楽しさと実用性を発信しています。難しい知識がなくても、言葉ひとつで思い通りのビジュアルを作れる時代になりました。
               </p>
             </div>
-
-            <!-- Career milestones -->
             <div class="w-full space-y-6 sm:space-y-8 border-t border-[#f0ebe3]/10 pt-10">
-
-              <!-- Timeline block 1 -->
               <div class="reveal-on-scroll delay-100 flex flex-col sm:flex-row items-start sm:items-center py-2 group">
-                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">
-                  2021
-                </span>
-                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">
-                  Midjourney・DALL-EでAI画像生成をスタート
-                </span>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">2021</span>
+                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">Midjourney・DALL-EでAI画像生成をスタート</span>
               </div>
-
-              <!-- Timeline block 2 -->
               <div class="reveal-on-scroll delay-200 flex flex-col sm:flex-row items-start sm:items-center py-2 group">
-                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">
-                  2023
-                </span>
-                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">
-                  Stable Diffusion・LoRAでオリジナルキャラ制作を本格化
-                </span>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">2023</span>
+                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">Stable Diffusion・LoRAでオリジナルキャラ制作を本格化</span>
               </div>
-
-              <!-- Timeline block 3 -->
               <div class="reveal-on-scroll delay-300 flex flex-col sm:flex-row items-start sm:items-center py-2 group">
-                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">
-                  2024
-                </span>
-                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">
-                  クライアント向け制作・Coconalaでの支援実績多数
-                </span>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-accent tracking-wide mb-1 sm:mb-0 sm:w-28 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300">2024</span>
+                <span class="text-sm sm:text-base font-sans mt-0.5 text-text-dark/90 leading-relaxed font-light">クライアント向け制作・Coconalaでの支援実績多数</span>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
-        SKILLS SECTION (Bg #eee9e0)
-        ──────────────────────────────────────────────────────── -->
+    <!-- SKILLS -->
     <section id="skills" class="py-24 sm:py-32 bg-bg-sub border-t border-black/[0.01]">
       <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-
         <div class="reveal-on-scroll flex flex-col items-start mb-16 sm:mb-20">
           <span class="text-[0.7rem] tracking-[0.25em] text-text-muted uppercase font-sans mb-2">— Capability Matrix</span>
           <h2 class="font-serif text-3xl sm:text-4xl text-text-light font-bold">Skills</h2>
         </div>
-
-        <!-- 4 Grid side-by-side elements on desktop -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-          <!-- Skill: プロンプトデザイン -->
           <div class="reveal-on-scroll bg-bg-main p-8 border border-black/[0.02] shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between h-full group">
             <div>
               <div class="text-accent mb-6 inline-block">
                 <svg class="w-12 h-12 transition-all duration-500 ease-out group-hover:drop-shadow-[0_4px_12px_rgba(42,100,150,0.55)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  <path d="M8 10h8" />
-                  <path d="M8 13h5" />
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 10h8" /><path d="M8 13h5" />
                 </svg>
               </div>
               <div class="mb-4">
@@ -437,15 +326,11 @@
               <p class="text-xs font-sans text-text-muted leading-relaxed">思い通りの画像を引き出すプロンプト設計が得意です。スタイル・構図・色調を言葉で的確に指示し、イメージ通りの仕上がりを実現します。</p>
             </div>
           </div>
-
-          <!-- Skill: 画像後処理 -->
           <div class="reveal-on-scroll delay-100 bg-bg-main p-8 border border-black/[0.02] shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between h-full group">
             <div>
               <div class="text-accent mb-6 inline-block">
                 <svg class="w-12 h-12 transition-all duration-500 ease-out group-hover:drop-shadow-[0_4px_12px_rgba(42,100,150,0.55)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
+                  <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" />
                 </svg>
               </div>
               <div class="mb-4">
@@ -456,17 +341,11 @@
               <p class="text-xs font-sans text-text-muted leading-relaxed">AI生成後の微調整・テキスト合成・サイズ最適化をCanvaやPhotoshopで行います。実用的な完成品として仕上げるまでをワンストップで対応します。</p>
             </div>
           </div>
-
-          <!-- Skill: SNS活用 -->
           <div class="reveal-on-scroll delay-200 bg-bg-main p-8 border border-black/[0.02] shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between h-full group">
             <div>
               <div class="text-accent mb-6 inline-block">
                 <svg class="w-12 h-12 transition-all duration-500 ease-out group-hover:drop-shadow-[0_4px_12px_rgba(42,100,150,0.55)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="18" cy="5" r="3" />
-                  <circle cx="6" cy="12" r="3" />
-                  <circle cx="18" cy="19" r="3" />
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                  <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
                 </svg>
               </div>
               <div class="mb-4">
@@ -477,17 +356,11 @@
               <p class="text-xs font-sans text-text-muted leading-relaxed">各SNSプラットフォームの推奨サイズや視認性を理解したうえで、目を引く画像を制作します。投稿のエンゲージメント向上を視覚面からサポートします。</p>
             </div>
           </div>
-
-          <!-- Skill: 商用ライセンス設計 -->
           <div class="reveal-on-scroll delay-300 bg-bg-main p-8 border border-black/[0.02] shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between h-full group">
             <div>
               <div class="text-accent mb-6 inline-block">
                 <svg class="w-12 h-12 transition-all duration-500 ease-out group-hover:drop-shadow-[0_4px_12px_rgba(42,100,150,0.55)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                  <polyline points="10 9 9 9 8 9" />
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" />
                 </svg>
               </div>
               <div class="mb-4">
@@ -498,114 +371,73 @@
               <p class="text-xs font-sans text-text-muted leading-relaxed">各AIツールの商用利用ポリシーを把握し、安心して使える形での納品に対応しています。利用規約の確認から最終ファイル形式の調整まで丁寧にサポートします。</p>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
-        CONTACT SECTION (Bg #f7f4ef)
-        ──────────────────────────────────────────────────────── -->
+    <!-- CONTACT -->
     <section id="contact" class="py-28 sm:py-36 bg-bg-main relative">
       <div class="max-w-4xl mx-auto px-6 text-center">
-
         <div class="reveal-on-scroll">
           <span class="text-[0.7rem] tracking-[0.25em] text-text-muted uppercase font-sans mb-3 block">Get In Touch</span>
         </div>
-
-        <!-- Headline -->
         <div class="reveal-on-scroll delay-100">
-          <h2 class="font-serif font-bold text-text-light tracking-tight leading-[1.1] mb-8" style="font-size: clamp(2.8rem, 7vw, 6rem);">
-            Let's Create<br />Together
-          </h2>
+          <h2 class="font-serif font-bold text-text-light tracking-tight leading-[1.1] mb-8" style="font-size: clamp(2.8rem, 7vw, 6rem);">Let's Create<br />Together</h2>
         </div>
-
         <div class="reveal-on-scroll delay-150">
           <p class="text-sm font-sans tracking-wide text-text-muted mb-12">お仕事のご相談、お気軽にどうぞ。</p>
         </div>
-
-        <!-- Buttons triggers stacked/side-by-side -->
         <div class="reveal-on-scroll delay-200">
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16" id="contact-actions">
-
-            <!-- Coconala -->
-            <a href="https://coconala.com" target="_blank" referrerPolicy="no-referrer" class="w-full sm:w-auto group inline-flex items-center justify-center space-x-4 bg-accent hover:bg-[#1a4b7a] text-white text-xs font-medium uppercase tracking-[0.15em] px-8 py-4 transition-all duration-500 rounded-none shadow-md hover:shadow-lg transform hover:-translate-y-0.5" id="coconala-cta-button">
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+            <a href="https://coconala.com" target="_blank" referrerPolicy="no-referrer" class="w-full sm:w-auto group inline-flex items-center justify-center space-x-4 bg-accent hover:bg-[#1a4b7a] text-white text-xs font-medium uppercase tracking-[0.15em] px-8 py-4 transition-all duration-500 rounded-none shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
               <span>ココナラで依頼する</span>
               <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
-
-            <!-- Direct email with clipboard fallbacks -->
             <div class="w-full sm:w-auto flex flex-col items-center space-y-2">
-              <a href="mailto:papiyon4110@gmail.com" id="email-cta-button" class="w-full sm:w-auto group inline-flex items-center justify-center space-x-4 border border-accent hover:bg-accent/5 text-accent text-xs font-medium uppercase tracking-[0.15em] px-8 py-4 transition-all duration-500 rounded-none transform hover:-translate-y-0.5">
+              <a href="mailto:papiyon4110@gmail.com" class="w-full sm:w-auto group inline-flex items-center justify-center space-x-4 border border-accent hover:bg-accent/5 text-accent text-xs font-medium uppercase tracking-[0.15em] px-8 py-4 transition-all duration-500 rounded-none transform hover:-translate-y-0.5">
                 <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
                 <span>メールで直接相談する</span>
                 <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </a>
-
-              <!-- Address help hint -->
               <span class="text-[11px] font-mono tracking-wider cursor-pointer text-text-muted hover:text-accent transition-colors py-1" id="sub-email-helper">
                 papiyon4110@gmail.com (クリックでコピー)
               </span>
             </div>
-
           </div>
         </div>
-
-        <!-- SNS 3 Icons Lists: Threads / note / YouTube -->
         <div class="reveal-on-scroll delay-300">
-          <div class="flex items-center justify-center space-x-10 pt-4" id="sns-links">
-
-            <a href="https://threads.net" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="Threads Profile">
+          <div class="flex items-center justify-center space-x-10 pt-4">
+            <a href="https://threads.net" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="Threads">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 12a4 4 0 1 0 0 8M12 2a10 10 0 1 0 9 5.5l-2.3 2" />
-                <path d="M12 8a4 4 0 1 1-4 4" />
+                <path d="M12 12a4 4 0 1 0 0 8M12 2a10 10 0 1 0 9 5.5l-2.3 2" /><path d="M12 8a4 4 0 1 1-4 4" />
               </svg>
             </a>
-
-            <a href="https://note.com" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="note Profile">
+            <a href="https://note.com" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="note">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <line x1="14" y1="2" x2="14" y2="8" />
-                <line x1="14" y1="8" x2="20" y2="8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10 9 9 9 8 9" />
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><line x1="14" y1="2" x2="14" y2="8" /><line x1="14" y1="8" x2="20" y2="8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" />
               </svg>
             </a>
-
-            <a href="https://youtube.com" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="YouTube Channel">
+            <a href="https://youtube.com" target="_blank" referrerPolicy="no-referrer" class="text-text-muted hover:text-accent transition-colors duration-300" aria-label="YouTube">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="4" />
-                <path d="m10 9 5 3-5 3V9z" />
+                <rect x="2" y="4" width="20" height="16" rx="4" /><path d="m10 9 5 3-5 3V9z" />
               </svg>
             </a>
-
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
-        FOOTER (Bg #1e1a16)
-        ──────────────────────────────────────────────────────── -->
+    <!-- FOOTER -->
     <footer class="bg-bg-dark text-text-dark/50 py-12 relative overflow-hidden">
-      <!-- Gradient border line of 1px height -->
       <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-accent via-accent-sub to-transparent opacity-80 animate-pulse"></div>
-
       <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center select-none">
-        <p class="text-[0.7rem] tracking-[0.15em] font-mono">
-          © 2026 AI Image Creator 神無月 / imagecreater
-        </p>
+        <p class="text-[0.7rem] tracking-[0.15em] font-mono">© 2026 AI Image Creator 神無月 / imagecreater</p>
       </div>
     </footer>
 
-    <!-- ────────────────────────────────────────────────────────
-        TOAST NOTIFICATION (Clipboard Feedback)
-        ──────────────────────────────────────────────────────── -->
+    <!-- TOAST -->
     <div id="toast-email-clipboard" class="fixed bottom-8 right-8 z-50 transition-all duration-500 transform opacity-0 translate-y-4 scale-95 pointer-events-none">
       <div class="bg-bg-dark text-text-dark px-6 py-4 border border-accent/20 shadow-2xl flex items-center space-x-3.5">
         <div class="w-2.5 h-2.5 rounded-full bg-accent animate-ping"></div>
@@ -616,93 +448,49 @@
       </div>
     </div>
 
-    <!-- ────────────────────────────────────────────────────────
-        EDITORIAL SAMPLE READER OVERLAY / MODAL
-        ──────────────────────────────────────────────────────── -->
+    <!-- MODAL -->
     <div id="work-sample-reader-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-500">
-
-      <!-- Backdrop with click close -->
       <div id="modal-backdrop-dismiss" class="absolute inset-0 bg-bg-dark/80 backdrop-blur-md transition-opacity duration-500"></div>
-
-      <!-- Floating Paper Interior Sheet -->
       <div id="work-sample-paper-interior" class="relative bg-bg-main w-full max-w-3xl h-[88vh] flex flex-col justify-between shadow-2xl border border-black/[0.04] transition-all duration-500 transform translate-y-8 scale-95">
-
-        <!-- Header status info bar -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-black/[0.05] bg-bg-sub/50 select-none">
           <div class="flex items-center space-x-3 text-[11px] font-mono tracking-wider text-text-muted">
-            <span id="modal-badge-category" class="px-2 py-0.5 bg-accent/10 text-accent font-sans font-bold uppercase rounded-sm">
-              category
-            </span>
-            <span>•</span>
-            <span id="modal-badge-date">date</span>
-            <span>•</span>
-            <span id="modal-badge-readtime">readtime</span>
+            <span id="modal-badge-category" class="px-2 py-0.5 bg-accent/10 text-accent font-sans font-bold uppercase rounded-sm">category</span>
+            <span>•</span><span id="modal-badge-date">date</span>
+            <span>•</span><span id="modal-badge-readtime">readtime</span>
           </div>
-
           <button id="modal-close-button" class="text-text-muted hover:text-accent p-1 transition-colors group cursor-pointer focus:outline-none" aria-label="閉じる">
             <svg class="w-5 h-5 transform group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-
-        <!-- Scrollable Article Document Body -->
         <div class="flex-1 overflow-y-auto px-6 py-10 sm:px-12 sm:py-14 select-text">
           <article class="max-w-2xl mx-auto">
-
-            <span id="modal-top-meta-label" class="text-[11px] sm:text-xs tracking-[0.2em] font-sans font-bold text-accent uppercase block mb-3">
-              — CONCEPT NOTE
-            </span>
-
-            <h1 id="modal-article-title" class="font-serif font-bold text-2xl sm:text-3xl text-text-light leading-snug mb-8">
-              Title Placeholder
-            </h1>
-
-            <!-- Explanatory metadata block -->
+            <span id="modal-top-meta-label" class="text-[11px] sm:text-xs tracking-[0.2em] font-sans font-bold text-accent uppercase block mb-3">— CONCEPT NOTE</span>
+            <h1 id="modal-article-title" class="font-serif font-bold text-2xl sm:text-3xl text-text-light leading-snug mb-8">Title Placeholder</h1>
             <div class="p-5 bg-bg-sub/65 border-l-2 border-accent/40 text-xs sm:text-sm text-text-muted leading-relaxed font-sans mb-10">
               <span class="block font-bold text-text-light mb-1">【制作コンセプト】</span>
               <span id="modal-article-overview">Overview placeholder.</span>
             </div>
-
-            <!-- Separator -->
             <div class="w-16 h-[1px] bg-accent/30 mb-8"></div>
-
-            <!-- Main dynamic article slots -->
-            <div id="modal-article-content-flow" class="space-y-8">
-              <!-- Rendered content blocks are inserted dynamically here -->
-            </div>
-
-            <!-- Calligraphic bottom signature banner -->
+            <div id="modal-article-content-flow" class="space-y-8"></div>
             <div class="mt-16 pt-8 border-t border-black/[0.04] text-center select-none">
               <p class="font-serif text-sm tracking-widest text-accent">AIで、世界を描く。</p>
               <p class="text-[10px] font-sans text-text-muted mt-2">© imagecreater 神無月 Portfolio</p>
             </div>
-
           </article>
         </div>
-
-        <!-- Bottom Action bar -->
         <div class="px-6 py-4 border-t border-black/[0.05] bg-bg-sub/30 flex items-center justify-end space-x-4 select-none">
-          <button id="modal-dismiss-btn" class="px-5 py-2 border border-black/10 hover:border-accent text-xs font-medium uppercase tracking-widest hover:bg-black/5 transition-all duration-300 rounded-none cursor-pointer focus:outline-none">
-            実績一覧に戻る
-          </button>
+          <button id="modal-dismiss-btn" class="px-5 py-2 border border-black/10 hover:border-accent text-xs font-medium uppercase tracking-widest hover:bg-black/5 transition-all duration-300 rounded-none cursor-pointer focus:outline-none">実績一覧に戻る</button>
         </div>
-
       </div>
     </div>
 
-
-    <!-- ────────────────────────────────────────────────────────
-        MONOLITHIC JAVASCRIPT SYSTEM
-        ──────────────────────────────────────────────────────── -->
     <script>
-      // Work Concept Notes Static Database
       const worksData = {
         'work-1': {
-          category: 'SNSサムネイル',
-          title: 'YouTube・SNS向けAI生成サムネイル制作',
-          publishDate: '2024.10',
-          readTime: '制作期間 約1〜2日',
+          category: 'SNSサムネイル', title: 'YouTube・SNS向けAI生成サムネイル制作',
+          publishDate: '2024.10', readTime: '制作期間 約1〜2日',
           description: 'Midjourneyを活用し、YouTubeやThreads向けのサムネイル画像を制作した事例です。クライアントのブランドカラーと世界観をプロンプトに落とし込み、クリック率向上につながるビジュアルを実現しました。',
           sampleBlocks: [
             { type: 'heading', text: 'プロンプト設計のポイント' },
@@ -710,315 +498,129 @@
             { type: 'subheading', text: '実際に使用したプロンプトの構成例' },
             { type: 'quote', text: 'cinematic thumbnail, bold typography, deep blue and gold color scheme, dramatic lighting from upper left, high contrast, 16:9 format, professional YouTube style, --ar 16:9 --v 6' },
             { type: 'paragraph', text: 'このように「色・光・比率・スタイル」の4要素を明示することで、再現性の高い出力が得られます。複数バリエーションを生成し、クライアントに選んでいただく形で納品しています。' },
-            { type: 'subheading', text: 'Canvaでの後処理' },
-            { type: 'paragraph', text: 'Midjourneyで生成した画像をCanvaに取り込み、テキストの合成・フォント調整・チャンネルロゴの配置を行って完成品に仕上げます。この工程があることで、純粋なAI出力よりも格段にプロフェッショナルな仕上がりになります。' },
-            { type: 'list', text: '制作ツール一覧', items: [
-              'Midjourney v6（メイン画像生成）',
-              'Canva Pro（テキスト合成・ロゴ配置）',
-              'Adobe Express（リサイズ・書き出し）'
-            ]}
+            { type: 'list', text: '制作ツール一覧', items: ['Midjourney v6（メイン画像生成）','Canva Pro（テキスト合成・ロゴ配置）','Adobe Express（リサイズ・書き出し）'] }
           ]
         },
         'work-2': {
-          category: '商品ビジュアル',
-          title: 'ECサイト向け商品イメージ画像の生成',
-          publishDate: '2024.08',
-          readTime: '制作期間 約2〜3日',
+          category: '商品ビジュアル', title: 'ECサイト向け商品イメージ画像の生成',
+          publishDate: '2024.08', readTime: '制作期間 約2〜3日',
           description: 'DALL-E・Adobe Fireflyを使い、ECサイトの商品ページ用ビジュアルを制作した事例です。実物写真の代わりにAI画像を活用することで、撮影コストを大幅に削減しながら高品質なビジュアルを実現しました。',
           sampleBlocks: [
             { type: 'heading', text: 'ECビジュアルにAIが向いている理由' },
             { type: 'paragraph', text: '商品写真の撮影には、カメラマン・スタジオ・小道具・レタッチなど多くのコストがかかります。AIを使えば、「白背景に置かれたシンプルな商品」から「おしゃれな生活シーン」まで、さまざまなシチュエーションの画像を短時間・低コストで用意できます。' },
-            { type: 'subheading', text: 'Adobe Fireflyを選ぶ理由' },
-            { type: 'paragraph', text: 'Adobe Fireflyは商用利用が明示的に許可されており、ECサイトへの掲載でも安心して使えます。また、既存の写真に対して「背景だけを生成AIで差し替える」機能が充実しているため、実物写真と組み合わせた活用にも最適です。' },
-            { type: 'list', text: 'ECビジュアル制作の流れ', items: [
-              'クライアントからの商品情報・ターゲット・世界観のヒアリング',
-              'Adobe FireflyまたはDALL-Eでベース画像を複数パターン生成',
-              'Canva・Photoshopで商品ロゴ・価格帯に合わせたトーン調整',
-              '最終納品（PNG/JPEG、各種サイズ）'
-            ]},
+            { type: 'list', text: 'ECビジュアル制作の流れ', items: ['クライアントからの商品情報・ターゲット・世界観のヒアリング','Adobe FireflyまたはDALL-Eでベース画像を複数パターン生成','Canva・Photoshopで商品ロゴ・価格帯に合わせたトーン調整','最終納品（PNG/JPEG、各種サイズ）'] },
             { type: 'quote', text: '「写真を撮り直す予算がない」という方ほど、AI画像生成の恩恵を感じていただけます。' }
           ]
         },
         'work-3': {
-          category: 'コンセプトアート',
-          title: 'Kindle表紙・note用アイキャッチ画像制作',
-          publishDate: '2024.12',
-          readTime: '制作期間 約1日',
+          category: 'コンセプトアート', title: 'Kindle表紙・note用アイキャッチ画像制作',
+          publishDate: '2024.12', readTime: '制作期間 約1日',
           description: '電子書籍の表紙やnote記事のアイキャッチをAIで制作した事例です。著者の世界観・テーマに合ったビジュアルを複数案提案し、出版・発信のハードルを大幅に下げることができました。',
           sampleBlocks: [
             { type: 'heading', text: '「伝わる表紙」をAIで作るコツ' },
             { type: 'paragraph', text: 'Kindle本の表紙はその本の第一印象を決める重要な要素です。タイトルとビジュアルが一致していること、そしてカテゴリーのジャンル感が伝わることが大切です。プロンプト設計では「ジャンル感」「読者層」「色のトーン」を必ず明示します。' },
-            { type: 'subheading', text: '副業・ビジネス書の表紙プロンプト例' },
-            { type: 'quote', text: 'minimalist book cover design, soft gradient background in warm beige and navy, geometric shapes, professional and trustworthy feel, Japanese self-help book style, clean typography space at top, --ar 6:9 --v 6' },
-            { type: 'paragraph', text: 'このプロンプトで生成した画像をCanvaに取り込み、タイトル・著者名・帯のテキストを重ねて最終的な表紙データを完成させます。Kindleの推奨解像度（2,560×1,600px）に合わせた書き出しまで対応します。' },
-            { type: 'list', text: 'note向けアイキャッチのポイント', items: [
-              '横長（1280×670px）のアスペクト比を意識した構図で生成する',
-              '文字が重なる部分（左側・上部）はシンプルな背景になるよう指示する',
-              '記事のテーマカラーに合わせた配色でシリーズ感を統一する'
-            ]}
+            { type: 'list', text: 'note向けアイキャッチのポイント', items: ['横長（1280×670px）のアスペクト比を意識した構図で生成する','文字が重なる部分（左側・上部）はシンプルな背景になるよう指示する','記事のテーマカラーに合わせた配色でシリーズ感を統一する'] }
           ]
         }
       };
 
-      // 1. Particle floating network engine
+      // パーティクル
       (function initParticles() {
-        const canvasContainer = document.getElementById('hero-particles-canvas');
-        if (!canvasContainer) return;
-
-        let width = canvasContainer.clientWidth;
-        let height = canvasContainer.clientHeight;
-
-        // Setup SVG viewport
+        const container = document.getElementById('hero-particles-canvas');
+        if (!container) return;
+        let w = container.clientWidth, h = container.clientHeight;
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute('width', width);
-        svg.setAttribute('height', height);
         svg.setAttribute('class', 'absolute top-0 left-0 w-full h-full');
-        canvasContainer.appendChild(svg);
-
-        // Maintain size on screen resize
-        const resizeObserver = new ResizeObserver(entries => {
-          if (!entries || !entries.length) return;
-          width = entries[0].contentRect.width;
-          height = entries[0].contentRect.height;
-          svg.setAttribute('width', width);
-          svg.setAttribute('height', height);
-        });
-        resizeObserver.observe(canvasContainer);
-
-        const colors = ['#2a6496', '#4a9ab0'];
-        const particles = [];
-        const particleCount = 20;
-
-        for (let i = 0; i < particleCount; i++) {
-          particles.push({
-            id: i,
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            size: Math.random() * 2 + 2,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            opacity: Math.random() * 0.15 + 0.15
+        svg.setAttribute('width', w); svg.setAttribute('height', h);
+        container.appendChild(svg);
+        new ResizeObserver(e => { w = e[0].contentRect.width; h = e[0].contentRect.height; svg.setAttribute('width',w); svg.setAttribute('height',h); }).observe(container);
+        const colors = ['#2a6496','#4a9ab0'];
+        const pts = Array.from({length:20}, (_,i) => ({ x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, size:Math.random()*2+2, color:colors[i%2], op:Math.random()*.15+.15 }));
+        const rects = pts.map(p => { const r=document.createElementNS("http://www.w3.org/2000/svg","rect"); r.setAttribute('width',p.size); r.setAttribute('height',p.size); r.setAttribute('fill',p.color); r.setAttribute('fill-opacity',p.op); svg.appendChild(r); return r; });
+        const lines = [];
+        let mx=null,my=null;
+        window.addEventListener('mousemove',e=>{ const b=container.getBoundingClientRect(); mx=e.clientX-b.left; my=e.clientY-b.top; });
+        window.addEventListener('mouseleave',()=>{mx=null;my=null;});
+        (function frame() {
+          lines.forEach(l=>l.remove()); lines.length=0;
+          pts.forEach((p,i)=>{
+            p.x+=p.vx; p.y+=p.vy;
+            if(p.x<0||p.x>w){p.vx*=-1;p.x=Math.max(0,Math.min(p.x,w));}
+            if(p.y<0||p.y>h){p.vy*=-1;p.y=Math.max(0,Math.min(p.y,h));}
+            if(mx!==null){const dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy);if(d<185){const f=(185-d)/185;p.x+=(dx/d)*f*.8;p.y+=(dy/d)*f*.8;}}
+            rects[i].setAttribute('x',p.x-p.size/2); rects[i].setAttribute('y',p.y-p.size/2);
           });
-        }
-
-        const rectElements = [];
-        const lineElements = [];
-
-        particles.forEach(p => {
-          const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-          rect.setAttribute('width', p.size);
-          rect.setAttribute('height', p.size);
-          rect.setAttribute('fill', p.color);
-          rect.setAttribute('fill-opacity', p.opacity);
-          svg.appendChild(rect);
-          rectElements.push({ el: rect, data: p });
-        });
-
-        let mouseX = null;
-        let mouseY = null;
-
-        window.addEventListener('mousemove', e => {
-          const rect = canvasContainer.getBoundingClientRect();
-          mouseX = e.clientX - rect.left;
-          mouseY = e.clientY - rect.top;
-        });
-
-        window.addEventListener('mouseleave', () => {
-          mouseX = null;
-          mouseY = null;
-        });
-
-        function renderFrame() {
-          lineElements.forEach(line => line.remove());
-          lineElements.length = 0;
-
-          particles.forEach((p, idx) => {
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if (p.x < 0 || p.x > width) {
-              p.vx *= -1;
-              p.x = Math.max(0, Math.min(p.x, width));
-            }
-            if (p.y < 0 || p.y > height) {
-              p.vy *= -1;
-              p.y = Math.max(0, Math.min(p.y, height));
-            }
-
-            if (mouseX !== null && mouseY !== null) {
-              const dx = mouseX - p.x;
-              const dy = mouseY - p.y;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-              if (dist < 185) {
-                const force = (185 - dist) / 185;
-                p.x += (dx / dist) * force * 0.8;
-                p.y += (dy / dist) * force * 0.8;
-              }
-            }
-
-            const rectObj = rectElements[idx];
-            rectObj.el.setAttribute('x', p.x - p.size / 2);
-            rectObj.el.setAttribute('y', p.y - p.size / 2);
-          });
-
-          for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-              const p1 = particles[i];
-              const p2 = particles[j];
-              const dx = p1.x - p2.x;
-              const dy = p1.y - p2.y;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-
-              if (dist < 120) {
-                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                line.setAttribute('x1', p1.x);
-                line.setAttribute('y1', p1.y);
-                line.setAttribute('x2', p2.x);
-                line.setAttribute('y2', p2.y);
-                line.setAttribute('stroke', '#2a6496');
-                line.setAttribute('stroke-width', '0.5');
-                line.setAttribute('stroke-opacity', '0.08');
-                line.setAttribute('stroke-dasharray', '3,3');
-                svg.insertBefore(line, svg.firstChild);
-                lineElements.push(line);
-              }
-            }
+          for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+            const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+            if(d<120){const l=document.createElementNS("http://www.w3.org/2000/svg","line");l.setAttribute('x1',pts[i].x);l.setAttribute('y1',pts[i].y);l.setAttribute('x2',pts[j].x);l.setAttribute('y2',pts[j].y);l.setAttribute('stroke','#2a6496');l.setAttribute('stroke-width','0.5');l.setAttribute('stroke-opacity','0.08');l.setAttribute('stroke-dasharray','3,3');svg.insertBefore(l,svg.firstChild);lines.push(l);}
           }
-
-          requestAnimationFrame(renderFrame);
-        }
-
-        requestAnimationFrame(renderFrame);
+          requestAnimationFrame(frame);
+        })();
       })();
 
-
-      // 2. Scroll event observer + solid navbar background
-      (function setupScrollEffects() {
+      // スクロール効果
+      (function() {
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-          if (window.scrollY > 40) {
-            navbar.classList.add('backdrop-blur-nav', 'bg-bg-main/75', 'py-4', 'border-b', 'border-black/[0.03]', 'shadow-md', 'shadow-black/[0.01]');
-            navbar.classList.remove('py-6', 'bg-transparent');
-          } else {
-            navbar.classList.add('py-6', 'bg-transparent');
-            navbar.classList.remove('backdrop-blur-nav', 'bg-bg-main/75', 'py-4', 'border-b', 'border-black/[0.03]', 'shadow-md', 'shadow-black/[0.01]');
-          }
+          if (window.scrollY > 40) { navbar.classList.add('backdrop-blur-nav','bg-bg-main/75','py-4','border-b','border-black/[0.03]','shadow-md'); navbar.classList.remove('py-6'); }
+          else { navbar.classList.add('py-6'); navbar.classList.remove('backdrop-blur-nav','bg-bg-main/75','py-4','border-b','border-black/[0.03]','shadow-md'); }
         });
-
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        const observer = new IntersectionObserver((entries, self) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              self.unobserve(entry.target);
-            }
-          });
-        }, {
-          root: null,
-          rootMargin: '0px 0px -60px 0px',
-          threshold: 0.05
-        });
-
-        revealElements.forEach(el => observer.observe(el));
+        const obs = new IntersectionObserver((entries,self) => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('is-visible');self.unobserve(e.target);} }); }, { rootMargin:'0px 0px -60px 0px', threshold:0.05 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => obs.observe(el));
       })();
 
-
-      // 3. Stagger trigger on heroic start
-      (function triggerHeroStagger() {
-        const label = document.getElementById('hero-label-tag');
-        const title = document.getElementById('hero-title');
-        const sub = document.getElementById('hero-sub');
-        const copy = document.getElementById('hero-copy');
-        const cta = document.getElementById('hero-cta');
-
-        setTimeout(() => { if (label) label.classList.remove('opacity-0', 'translate-y-5'); }, 150);
-        setTimeout(() => { if (title) title.classList.remove('opacity-0', 'translate-y-5'); }, 300);
-        setTimeout(() => { if (sub) sub.classList.remove('opacity-0', 'translate-y-5'); }, 450);
-        setTimeout(() => { if (copy) copy.classList.remove('opacity-0', 'translate-y-5'); }, 650);
-        setTimeout(() => { if (cta) cta.classList.remove('opacity-0', 'translate-y-5'); }, 850);
-      })();
-
-
-      // 4. Mobile Menu Drawer Toggling controls
-      (function setupMobileMenu() {
-        const toggleBtn = document.getElementById('mobile-menu-toggle');
-        const drawer = document.getElementById('mobile-nav-drawer');
-        const burgerIcon = document.getElementById('hamburger-icon');
-        const closeIcon = document.getElementById('close-icon');
-        const links = document.querySelectorAll('.mobile-nav-link');
-
-        if (!toggleBtn || !drawer) return;
-
-        function toggleMenu() {
-          const isOpen = drawer.classList.contains('opacity-100');
-          if (isOpen) {
-            drawer.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            drawer.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
-            burgerIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-          } else {
-            drawer.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            drawer.classList.remove('opacity-0', '-translate-y-8', 'pointer-events-none');
-            burgerIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-          }
+      // モバイルメニュー
+      (function() {
+        const btn=document.getElementById('mobile-menu-toggle'), drawer=document.getElementById('mobile-nav-drawer'), bi=document.getElementById('hamburger-icon'), ci=document.getElementById('close-icon');
+        if(!btn||!drawer) return;
+        function toggle() {
+          const open=drawer.classList.contains('opacity-100');
+          if(open){drawer.classList.remove('opacity-100','translate-y-0','pointer-events-auto');drawer.classList.add('opacity-0','-translate-y-8','pointer-events-none');bi.classList.remove('hidden');ci.classList.add('hidden');}
+          else{drawer.classList.add('opacity-100','translate-y-0','pointer-events-auto');drawer.classList.remove('opacity-0','-translate-y-8','pointer-events-none');bi.classList.add('hidden');ci.classList.remove('hidden');}
         }
-
-        toggleBtn.addEventListener('click', toggleMenu);
-        links.forEach(l => l.addEventListener('click', toggleMenu));
+        btn.addEventListener('click',toggle);
+        document.querySelectorAll('.mobile-nav-link').forEach(l=>l.addEventListener('click',toggle));
       })();
 
+      // メールコピー
+      document.getElementById('sub-email-helper')?.addEventListener('click', () => {
+        navigator.clipboard.writeText('papiyon4110@gmail.com').then(() => {
+          const t=document.getElementById('toast-email-clipboard');
+          t.classList.remove('opacity-0','translate-y-4','scale-95','pointer-events-none');
+          t.classList.add('opacity-100','translate-y-0','scale-100');
+          setTimeout(()=>{t.classList.add('opacity-0','translate-y-4','scale-95','pointer-events-none');t.classList.remove('opacity-100','translate-y-0','scale-100');},3000);
+        });
+      });
 
-      // 5. Open and Close Sample Post Readers
-      function openSample(workId) {
-        const data = worksData[workId];
-        if (!data) return;
-
-        document.getElementById('modal-badge-category').innerText = data.category;
-        document.getElementById('modal-badge-date').innerText = data.publishDate;
-        document.getElementById('modal-badge-readtime').innerText = data.readTime;
-        document.getElementById('modal-top-meta-label').innerText = `— ${data.category} Concept Note`;
-        document.getElementById('modal-article-title').innerText = data.title;
-        document.getElementById('modal-article-overview').innerText = data.description;
-
-        const flowContainer = document.getElementById('modal-article-content-flow');
-        flowContainer.innerHTML = '';
-
-        data.sampleBlocks.forEach(block => {
-          if (block.type === 'heading') {
-            const el = document.createElement('h2');
-            el.className = "font-serif font-bold text-lg sm:text-xl text-accent leading-snug pt-4 border-b border-black/[0.02] pb-2";
-            el.innerText = block.text;
-            flowContainer.appendChild(el);
-          } else if (block.type === 'subheading') {
-            const el = document.createElement('h3');
-            el.className = "font-serif font-bold text-base sm:text-lg text-text-light leading-snug pt-3";
-            el.innerText = block.text;
-            flowContainer.appendChild(el);
-          } else if (block.type === 'paragraph') {
-            const el = document.createElement('p');
-            el.className = "text-sm sm:text-base font-sans text-text-light/95 leading-loose tracking-wide";
-            el.innerText = block.text;
-            flowContainer.appendChild(el);
-          } else if (block.type === 'quote') {
-            const el = document.createElement('blockquote');
-            el.className = "pl-5 border-l-3 border-accent py-1.5 my-6 text-text-muted text-sm sm:text-base font-serif italic bg-bg-sub/20";
-            el.innerText = `「${block.text}」`;
-            flowContainer.appendChild(el);
-          } else if (block.type === 'list') {
-            const panel = document.createElement('div');
-            panel.className = "space-y-3 pt-2";
-
-            const title = document.createElement('p');
-            title.className = "text-sm sm:text-base font-sans font-bold text-text-light";
-            title.innerText = block.text;
-            panel.appendChild(title);
-
-            const ul = document.createElement('ul');
-            ul.className = "list-none pl-4 space-y-2.5";
-
-            block.items.forEach(item => {
-              const li = document.createElement('li');
-              li.className = "text-xs sm:text-sm font-sans text-text-muted flex items-start space-x-2.5 leading-relaxed";
-              li.innerHTML = `<span class="w-1.5 h-1.5 bg-accent/70 mt-1.5 
+      // モーダル
+      function openSample(id) {
+        const d=worksData[id]; if(!d) return;
+        document.getElementById('modal-badge-category').innerText=d.category;
+        document.getElementById('modal-badge-date').innerText=d.publishDate;
+        document.getElementById('modal-badge-readtime').innerText=d.readTime;
+        document.getElementById('modal-top-meta-label').innerText=`— ${d.category} Concept Note`;
+        document.getElementById('modal-article-title').innerText=d.title;
+        document.getElementById('modal-article-overview').innerText=d.description;
+        const flow=document.getElementById('modal-article-content-flow'); flow.innerHTML='';
+        d.sampleBlocks.forEach(b=>{
+          if(b.type==='heading'){const el=document.createElement('h2');el.className="font-serif font-bold text-lg text-accent leading-snug pt-4 border-b border-black/[0.02] pb-2";el.innerText=b.text;flow.appendChild(el);}
+          else if(b.type==='subheading'){const el=document.createElement('h3');el.className="font-serif font-bold text-base text-text-light leading-snug pt-3";el.innerText=b.text;flow.appendChild(el);}
+          else if(b.type==='paragraph'){const el=document.createElement('p');el.className="text-sm font-sans text-text-light/95 leading-loose tracking-wide";el.innerText=b.text;flow.appendChild(el);}
+          else if(b.type==='quote'){const el=document.createElement('blockquote');el.className="pl-5 border-l-2 border-accent py-1.5 my-6 text-text-muted text-sm font-serif italic bg-bg-sub/20";el.innerText=`「${b.text}」`;flow.appendChild(el);}
+          else if(b.type==='list'){const p=document.createElement('div');p.className="space-y-3 pt-2";const t=document.createElement('p');t.className="text-sm font-sans font-bold text-text-light";t.innerText=b.text;p.appendChild(t);const ul=document.createElement('ul');ul.className="list-none pl-4 space-y-2.5";b.items.forEach(item=>{const li=document.createElement('li');li.className="text-xs font-sans text-text-muted flex items-start space-x-2.5 leading-relaxed";li.innerHTML=`<span class="w-1.5 h-1.5 bg-accent/70 mt-1.5 flex-shrink-0 inline-block"></span><span>${item}</span>`;ul.appendChild(li);});p.appendChild(ul);flow.appendChild(p);}
+        });
+        const ov=document.getElementById('work-sample-reader-overlay'), pi=document.getElementById('work-sample-paper-interior');
+        ov.classList.remove('opacity-0','pointer-events-none'); ov.classList.add('opacity-100');
+        pi.classList.remove('translate-y-8','scale-95'); pi.classList.add('translate-y-0','scale-100');
+      }
+      function closeSample() {
+        const ov=document.getElementById('work-sample-reader-overlay'), pi=document.getElementById('work-sample-paper-interior');
+        pi.classList.add('translate-y-8','scale-95'); pi.classList.remove('translate-y-0','scale-100');
+        setTimeout(()=>{ov.classList.add('opacity-0','pointer-events-none');ov.classList.remove('opacity-100');},300);
+      }
+      document.getElementById('modal-close-button')?.addEventListener('click',closeSample);
+      document.getElementById('modal-dismiss-btn')?.addEventListener('click',closeSample);
+      document.getElementById('modal-backdrop-dismiss')?.addEventListener('click',closeSample);
+    </script>
+  </body>
+</html>
